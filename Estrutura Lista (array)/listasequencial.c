@@ -93,50 +93,50 @@ int main(){
           printf("Digite a posição a ser inserida: ");
           scanf("%d", &pos);
           if(inserir(&lista, pos, valor)){
-            printf("Elemento %d inserido na posição %d com sucesso.\n", valor, pos);
+            printf("\nElemento %d inserido na posição %d com sucesso.\n", valor, pos);
           }else{
-            printf("Erro: Posição %d inválida para inserção.\n", pos);
+            printf("\nErro: Posição %d inválida para inserção.\n", pos);
           }
         }
         break;
       case 2:
         if(vazia(&lista)){
-          printf("Lista vazia.\n");
+          printf("\nLista vazia.\n");
         }else{
           printf("Digite a posição a ser removida: ");
           scanf("%d", &pos);
           int removido = remover(&lista, pos);
           if(removido!=-1){
-            printf("Elemento '%d' removido da posição '%d' com sucesso.\n", removido, pos);
+            printf("\nElemento '%d' removido da posição '%d' com sucesso.\n", removido, pos);
           }else{
-            printf("Erro: Posição fora dos limites da lista.\n");
+            printf("\nErro: Posição fora dos limites da lista.\n");
           }
         }
         break;
       case 3:
-        printf("Tamanho da lista: %d\n", tamanho(&lista));
+        printf("\nTamanho da lista: %d\n", tamanho(&lista));
         break;
       case 4:
         if(vazia(&lista)){
-          printf("Lista vazia.\n");
+          printf("\nLista vazia.\n");
         }else{
-          printf("Digite a posição do elemento a ser buscado: ");
+          printf("\nDigite a posição do elemento a ser buscado: ");
           scanf("%d", &pos);
           if(elemento(&lista, pos)!=-1){
-            printf("Elemento na posição %d: %d\n", pos, elemento(&lista, pos));
+            printf("\nElemento na posição %d: %d\n", pos, elemento(&lista, pos));
           }else{
-            printf("Erro: Posição fora dos limites da lista.\n");
+            printf("\nErro: Posição fora dos limites da lista.\n");
           }
         }
         break;
       case 5:
         if(vazia(&lista)){
-          printf("Lista vazia.\n");
+          printf("\nLista vazia.\n");
         }else{
           if(cheia(&lista)){
-            printf("Lista cheia.\n");
+            printf("\nLista cheia.\n");
           }
-          printf("Elementos da lista: \n");
+          printf("\nElementos da lista: \n");
           for(int i = 0; i<lista.tamAtual; i++){
             printf("Posição %d: [%d]\n", i+1, elemento(&lista, i+1));
           }
