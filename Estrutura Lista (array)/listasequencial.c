@@ -6,13 +6,13 @@
 typedef struct {
   int dados[tamMax];
   int tamAtual;
-} ListaSeq;
+} Lista;
 
-void inicia(ListaSeq *lista){
+void inicia(Lista *lista){
   lista->tamAtual = 0;
 }
 
-bool cheia(ListaSeq *lista){
+bool cheia(Lista *lista){
   if(lista->tamAtual == tamMax){
     return true;
   }else{
@@ -20,7 +20,7 @@ bool cheia(ListaSeq *lista){
   }
 }
 
-bool vazia(ListaSeq *lista){
+bool vazia(Lista *lista){
   if(lista->tamAtual == 0){
     return true;
   }else{
@@ -28,11 +28,11 @@ bool vazia(ListaSeq *lista){
   }
 }
 
-int tamanho(ListaSeq *lista){
+int tamanho(Lista *lista){
   return lista->tamAtual;
 }
 
-bool inserir(ListaSeq *lista, int pos, int valor){
+bool inserir(Lista *lista, int pos, int valor){
   if (cheia(lista) || pos <= 0 || pos > lista->tamAtual + 1) {
       return false;
   }
@@ -44,7 +44,7 @@ bool inserir(ListaSeq *lista, int pos, int valor){
     return true;
 }
 
-int remover(ListaSeq *lista, int pos){
+int remover(Lista *lista, int pos){
   if (pos <= 0 || pos > lista->tamAtual) {
       return -1;
   }
@@ -56,7 +56,7 @@ int remover(ListaSeq *lista, int pos){
   return valor;
 }
 
-int posicao (ListaSeq *lista, int dado){
+int posicao (Lista *lista, int dado){
   for (int i = 0; i < lista->tamAtual; i++){
     if (lista->dados[i] == dado){
       return (i + 1);
@@ -65,7 +65,7 @@ int posicao (ListaSeq *lista, int dado){
   return -1;
 }
 
-int elemento(ListaSeq *lista, int pos){
+int elemento(Lista *lista, int pos){
   int dado;
   if ((pos > lista->tamAtual) || (pos <= 0)){
     return -1;
@@ -75,74 +75,66 @@ int elemento(ListaSeq *lista, int pos){
 }
 
 int main(){
-  ListaSeq lista;
+  Lista lista;
   int op, valor, pos;
   inicia(&lista);
 
-  while(op != 6){
-    printf("\nMENU\n1 - inserir na lista\n2 - remover da lista\n3 - exibir tamanho\n4 - buscar elemento\n5 - exibir lista\n6 - sair\n");
-    scanf("%d", &op);
-      
+  FILE *arquivo = fopen("teste.txt", "r");
+  if (arquivo == NULL) {
+    printf("Erro ao abrir arquivo.\n");
+    return 1;
+  }
+
+  while(fscanf(arquivo, "%d", &op) != EOF){
     switch (op) {
       case 1:
-        if(cheia(&lista)){
-          printf("Lista cheia!\n");
-        }else{
-          printf("Digite o valor a ser inserido: ");
-          scanf("%d", &valor);
-          printf("Digite a posição a ser inserida: ");
-          scanf("%d", &pos);
+        if(fscanf(arquivo, "%d %d", &pos, &valor) == 2){
           if(inserir(&lista, pos, valor)){
-            printf("\nElemento %d inserido na posição %d com sucesso.\n", valor, pos);
+            printf("Elemento %d inserido na posição %d com sucesso.\n", valor, pos);
           }else{
-            printf("\nErro: Posição %d inválida para inserção.\n", pos);
+            printf("Erro: Posição %d inválida para inserção.\n", pos);
           }
         }
         break;
       case 2:
-        if(vazia(&lista)){
-          printf("\nLista vazia.\n");
-        }else{
-          printf("Digite a posição a ser removida: ");
-          scanf("%d", &pos);
+        if(fscanf(arquivo, "%d", &pos) == 1){
           int removido = remover(&lista, pos);
-          if(removido!=-1){
-            printf("\nElemento '%d' removido da posição '%d' com sucesso.\n", removido, pos);
+          if(removido != -1){
+            printf("Elemento '%d' removido da posição '%d' com sucesso.\n", removido, pos);
           }else{
-            printf("\nErro: Posição fora dos limites da lista.\n");
+            printf("Erro: Posição fora dos limites da lista.\n");
           }
         }
         break;
       case 3:
-        printf("\nTamanho da lista: %d\n", tamanho(&lista));
+        printf("Tamanho da lista: %d\n", tamanho(&lista));
         break;
       case 4:
-        if(vazia(&lista)){
-          printf("\nLista vazia.\n");
-        }else{
-          printf("\nDigite a posição do elemento a ser buscado: ");
-          scanf("%d", &pos);
-          if(elemento(&lista, pos)!=-1){
-            printf("\nElemento na posição %d: %d\n", pos, elemento(&lista, pos));
+        if(fscanf(arquivo, "%d", &pos) == 1){
+          int elem = elemento(&lista, pos);
+          if(elem != -1){
+            printf("Elemento na posição %d: %d\n", pos, elem);
           }else{
-            printf("\nErro: Posição fora dos limites da lista.\n");
+            printf("Erro: Posição fora dos limites da lista.\n");
           }
         }
         break;
       case 5:
         if(vazia(&lista)){
-          printf("\nLista vazia.\n");
+          printf("Lista vazia.\n");
         }else{
           if(cheia(&lista)){
-            printf("\nLista cheia.\n");
+            printf("Lista cheia.\n");
           }
-          printf("\nElementos da lista: \n");
+          printf("Elementos da lista: \n");
           for(int i = 0; i<lista.tamAtual; i++){
             printf("Posição %d: [%d]\n", i+1, elemento(&lista, i+1));
           }
         }
-      case 6:
         break;
+      case 6:
+        fclose(arquivo);
+        return 0;
     }
   }
   return 0;
