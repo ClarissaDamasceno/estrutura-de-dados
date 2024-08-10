@@ -1,4 +1,4 @@
-Este código implementa uma lista encadeada de inteiros, utilizando alocação dinâmica de memória, com as seguintes operações:
+### Este código implementa uma lista encadeada de inteiros, utilizando alocação dinâmica de memória, com as seguintes operações:
 
 1. Criação da lista vazia;
 2. Verificar se a lista está vazia;
@@ -8,11 +8,10 @@ Este código implementa uma lista encadeada de inteiros, utilizando alocação d
 6. Retirar um elemento de uma determinada posição.
 7. Imprimir os elementos de toda a lista. 
 
-O programa exibe um menu para o usuário com as seguintes opções:
-
-- Inserir na lista: Adiciona um elemento na posição especificada.
-- Remover da lista: Remove o elemento da posição especificada.
-- Exibir tamanho: Mostra o número atual de elementos na lista.
-- Buscar elemento: Exibe o valor do elemento na posição especificada.
-- Exibir lista: Mostra todos os elementos na lista com suas posições.
-- Sair: Encerra o programa.
+### Menu de opções:
+- 1 - inserir na lista
+ - 2 - remover da lista
+ - 3 - exibir tamanho
+ - 4 - buscar elemento
+ - 5 - exibir lista
+ - 6 - sair
