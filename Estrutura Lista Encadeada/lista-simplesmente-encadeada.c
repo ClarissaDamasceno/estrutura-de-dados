@@ -170,44 +170,43 @@ int main(void) {
   int op, valor, pos;
   inicia(&lista);
 
-  while(op != 6){
-    printf("\nMENU\n1 - inserir na lista\n2 - remover da lista\n3 - exibir tamanho\n4 - buscar elemento\n5 - exibir lista\n6 - sair\n");
-    scanf("%d", &op);
+  FILE *arquivo = fopen("teste.txt", "r");
+  if (arquivo == NULL) {
+    printf("Erro ao abrir arquivo.\n");
+    return 1;
+  }
+
+  while(fscanf(arquivo, "%d", &op) != EOF){
     switch (op) {
       case 1:
-        printf("Digite o valor a ser inserido: ");
-        scanf("%d", &valor);
-        printf("Digite a posição a ser inserida: ");
-        scanf("%d", &pos);
-        if(inserir(&lista, pos, valor)){
-          printf("\nElemento %d inserido na posição %d com sucesso.\n", valor, pos);
-        }else{
-          printf("\nErro: Posição %d inválida para inserção.\n", pos);
+        if(fscanf(arquivo, "%d %d", &pos, &valor) == 2){
+          if(inserir(&lista, pos, valor)){
+            printf("Elemento %d inserido na posição %d com sucesso.\n", valor, pos);
+          }else{
+            printf("Erro: Posição %d inválida para inserção.\n", pos);
+          }
         }
         break;
       case 2:
-        printf("Digite a posição a ser removida: ");
-        scanf("%d", &pos);
-        int removido = remover(&lista, pos);
-        if(removido!=-1){
-          printf("\nElemento '%d' removido da posição '%d' com sucesso.\n", removido, pos);
-        }else{
-          printf("\nErro: Não foi possível remover elemento.\n");
+        if(fscanf(arquivo, "%d", &pos) == 1){
+          int removido = remover(&lista, pos);
+          if(removido!=-1){
+            printf("Elemento '%d' removido da posição '%d' com sucesso.\n", removido, pos);
+          }else{
+            printf("Erro: Não foi possível remover elemento.\n");
+          }
         }
         break;
       case 3:
-        printf("\nTamanho da lista: %d\n", tamanho(&lista));
+        printf("Tamanho da lista: %d\n", tamanho(&lista));
         break;
       case 4:
-        if(vazia(&lista)){
-          printf("\nLista vazia.\n");
-        }else{
-          printf("Digite a posição do elemento a ser buscado: ");
-          scanf("%d", &pos);
-          if(elemento(&lista, pos)!=-1){
-            printf("\nElemento na posição %d: %d\n", pos, elemento(&lista, pos));
+        if(fscanf(arquivo, "%d", &pos) == 1){
+          int elem = elemento(&lista, pos);
+          if(elem != -1){
+            printf("Elemento na posição %d: %d\n", pos, elem);
           }else{
-            printf("\nErro: Posição fora dos limites da lista.\n");
+            printf("Erro: Posição fora dos limites da lista.\n");
           }
         }
         break;
@@ -222,7 +221,8 @@ int main(void) {
         }
         break;
       case 6:
-        break;
+        fclose(arquivo);
+        return 0;
     }
   }
   return 0;
