@@ -29,6 +29,7 @@
 1 60    //inserir
 1 70    //inserir
 5       //exibir fila
+6       //sair
 ```
 
 ### Comportamento do vetor:
@@ -50,3 +51,21 @@ Inserção:
 |---    |---    |---    |---   |---   |
 | 0     | 1     | 2     | 3    | 4    |
 |&nbsp; | fim   |inicio |&nbsp;|&nbsp;|
+
+### Saída esperada:
+```c
+Elemento 10 inserido com sucesso.
+Elemento 20 inserido com sucesso.
+Elemento 30 inserido com sucesso.
+Elemento 40 inserido com sucesso.
+Elemento 50 inserido com sucesso.
+Fila: 10 20 30 40 50 
+Elemento '10' removido com sucesso.
+Elemento '20' removido com sucesso.
+Primeiro elemento: 30
+Tamanho da fila: 3
+Fila: 30 40 50 
+Elemento 60 inserido com sucesso.
+Elemento 70 inserido com sucesso.
+Fila: 30 40 50 60 70
+```
